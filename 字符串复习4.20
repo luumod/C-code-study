@@ -1,4 +1,4 @@
-//strlenº¯ÊıÔ­ĞÍ
+//strlenå‡½æ•°åŸå‹
 //#include <stdio.h>
 //#include <string.h>
 //#define SIZE 1000
@@ -13,7 +13,7 @@
 //}
 
 
-//strrstr  ²éÕÒ×îºóÆ¥ÅäµÄÎ»ÖÃ£¬strrpbrkÍ¬Àí
+//strrstr  æŸ¥æ‰¾æœ€ååŒ¹é…çš„ä½ç½®ï¼ŒstrrpbrkåŒç†
 //#include <stdio.h>
 //#include <string.h>
 //#define SIZE 1000
@@ -33,15 +33,15 @@
 //
 //	last = NULL;
 //
-//	//ÔÚµÚ¶ş¸ö×Ö·û´®²»Îª¿ÕÊ±²éÕÒ
+//	//åœ¨ç¬¬äºŒä¸ªå­—ç¬¦ä¸²ä¸ä¸ºç©ºæ—¶æŸ¥æ‰¾
 //	if (*s2 != '\0') {
 //		current = strstr(s1, s2);
 //	}
-//	//Ã¿´ÎÕÒµ½×Ö·û´®Ê±£¬ÈÃÖ¸ÕëÖ¸ÏòËüµÄ³õÊ¼Î»ÖÃ£¬È»ºó²éÕÒ¸Ã×Ö·û´®
-//	//ÏÂÒ»´ÎÆ¥ÅäµÄµØ·½
+//	//æ¯æ¬¡æ‰¾åˆ°å­—ç¬¦ä¸²æ—¶ï¼Œè®©æŒ‡é’ˆæŒ‡å‘å®ƒçš„åˆå§‹ä½ç½®ï¼Œç„¶åæŸ¥æ‰¾è¯¥å­—ç¬¦ä¸²
+//	//ä¸‹ä¸€æ¬¡åŒ¹é…çš„åœ°æ–¹
 //	while (current != NULL) {
 //		last = current;
-//		current = strstr(last + 1, s2);	//ÒÆ¶¯×Ö·û´®µ½ÏÂÒ»¸öÎ»ÖÃ£¬ÒÔ±ã²éÕÒ×îºóµÄÆ¥ÅäÎ»ÖÃ
+//		current = strstr(last + 1, s2);	//ç§»åŠ¨å­—ç¬¦ä¸²åˆ°ä¸‹ä¸€ä¸ªä½ç½®ï¼Œä»¥ä¾¿æŸ¥æ‰¾æœ€åçš„åŒ¹é…ä½ç½®
 //	}
 //	return last;
 //
@@ -53,7 +53,7 @@
 //	char ch[1000];
 //	scanf("%s", ch);
 //	int count = strspn(ch, "\n\f\v\r\t");
-//	//¼ÆËãÖ¸Ïò×Ö·û´®µÚÒ»¸ö·Ç¿Õ°××Ö·ûµÄÖ¸Õë
+//	//è®¡ç®—æŒ‡å‘å­—ç¬¦ä¸²ç¬¬ä¸€ä¸ªéç©ºç™½å­—ç¬¦çš„æŒ‡é’ˆ
 //	char* pt = ch + strspn(ch, "\n\f\t\v\r");
 //	printf("%d", count);
 //	return 0;
@@ -79,12 +79,12 @@
 //}
 
 
-//ÖØĞ´memcpyº¯Êı
+//é‡å†™memcpyå‡½æ•°
 //#include <stdio.h>
 //#include <assert.h>
 //#define SIZE 10
 //void* my_memcpy(void* dest, char* str, size_t n) {
-//	//void*Ö¸ÕëÀàĞÍ£¬Òª°ÑËûÃÇ×ª»»ÎªÄãËùĞèÒªµÄÖ¸ÕëÀàĞÍ
+//	//void*æŒ‡é’ˆç±»å‹ï¼Œè¦æŠŠä»–ä»¬è½¬æ¢ä¸ºä½ æ‰€éœ€è¦çš„æŒ‡é’ˆç±»å‹
 //	/**(char*)dest;
 //	*(char*)str;*/
 //
@@ -93,7 +93,7 @@
 //
 //	assert(c1 != NULL);
 //	assert(c2 != NULL);
-//	//n´òÓ¡µÄ´ÎÊıÒÀ´Îµİ¼õ
+//	//næ‰“å°çš„æ¬¡æ•°ä¾æ¬¡é€’å‡
 //	while (n--) {
 //		*c1 = *c2;
 //		c1++;
@@ -103,21 +103,21 @@
 //int main(void) {
 //	int ch[SIZE] = { 1,2,3,4,5,6,7,8,9,10 };
 //	int c2[SIZE];
-//	my_memcpy(c2, ch, SIZE);	//ÖØĞ´
+//	my_memcpy(c2, ch, SIZE);	//é‡å†™
 //	for (int i = 0; i < SIZE; i++)
 //		printf("%d ", c2[i]);
 //	return 0;
 //}
 
-//malloc¶¯Ì¬·ÖÅäÄÚ´æ
+//mallocåŠ¨æ€åˆ†é…å†…å­˜
 //#include <stdio.h>
 //#include <stdlib.h>
 //#include <errno.h>
 //int main(void) {
-//	//ÎªnumÖ¸Õë·ÖÅä¶¯Ì¬ÄÚ´æ
+//	//ä¸ºnumæŒ‡é’ˆåˆ†é…åŠ¨æ€å†…å­˜
 //	int* num = (int*)malloc(10 * sizeof(int));
 //	if (num == NULL) {
-//		//·ÖÅäÊ§°ÜÔò·µ»Ø´íÎó
+//		//åˆ†é…å¤±è´¥åˆ™è¿”å›é”™è¯¯
 //		printf("%s\n", strerror(errno));
 //	}
 //	else{
@@ -131,13 +131,13 @@
 //}
 
 /*
-Õ»£º´æ´¢¾Ö²¿±äÁ¿   º¯ÊıĞÎ²Î
-¶Ñ£º ¶¯Ì¬·ÖÅäµÄÄÚ´æ
-¾²Ì¬Çø£º È«¾Ö±äÁ¿  ¾²Ì¬static±äÁ¿
+æ ˆï¼šå­˜å‚¨å±€éƒ¨å˜é‡   å‡½æ•°å½¢å‚
+å †ï¼š åŠ¨æ€åˆ†é…çš„å†…å­˜
+é™æ€åŒºï¼š å…¨å±€å˜é‡  é™æ€staticå˜é‡
 */
 
 /*
-×Ö·û´®Ï°Ìâ¸´Ï°
+å­—ç¬¦ä¸²ä¹ é¢˜å¤ä¹ 
 */
 
 //1
@@ -162,7 +162,7 @@
 //	return ch;
 //}
 
-//2¶Áµ½n¸ö×Ö·ûºóÍ£Ö¹»òÕßÓöµ½¿Õ°×
+//2è¯»åˆ°nä¸ªå­—ç¬¦ååœæ­¢æˆ–è€…é‡åˆ°ç©ºç™½
 //#include <stdio.h>
 //#define SIZE 100
 //char* read_chars(char*, int);
@@ -196,7 +196,7 @@
 //	return 0;
 //}
 //char* str(char* ch) {
-//	//¶ÁÈ¡Ò»¸öµ¥´Ê£¬Ìø¹ı¿Õ°×
+//	//è¯»å–ä¸€ä¸ªå•è¯ï¼Œè·³è¿‡ç©ºç™½
 //	/*char input[SIZE];
 //	char* num = input;
 //	fgets(input, SIZE, stdin);
@@ -209,7 +209,7 @@
 //	char* num = input;
 //	fgets(input, SIZE, stdin);
 //	while (isspace(*num)) {
-//		num++;	//¿Õ¸ñÅĞ¶Ï
+//		num++;	//ç©ºæ ¼åˆ¤æ–­
 //	}
 //	while (isalpha(*num)) {
 //		*ch++ = *num++;
@@ -218,7 +218,7 @@
 //	return ch;
 //}
 
-//Í¬µÚÈıÌâ£¬²»¹ıÖ¸Ã÷×î´ó¿É¶ÁÊıÁ¿
+//åŒç¬¬ä¸‰é¢˜ï¼Œä¸è¿‡æŒ‡æ˜æœ€å¤§å¯è¯»æ•°é‡
 //#include <stdio.h>
 //#include <string.h>
 //#include <ctype.h>
@@ -245,7 +245,7 @@
 //	return ch;
 //}
 
-//5.strchrº¯ÊıÖØĞ´,×Ö·û²éÕÒ
+//5.strchrå‡½æ•°é‡å†™,å­—ç¬¦æŸ¥æ‰¾
 //#include <stdio.h>
 //#include <string.h>
 //#define SIZE 100
@@ -253,9 +253,9 @@
 //int main(void) {
 //	char ar[SIZE];
 //	char ch;
-//	printf("ÊäÈë×Ö·û´®¼°Òª²éÕÒµÄ×Ö·û:");
+//	printf("è¾“å…¥å­—ç¬¦ä¸²åŠè¦æŸ¥æ‰¾çš„å­—ç¬¦:");
 //	scanf("%s %c", &ar, &ch);
-//	char* da = my_strchr(ar, ch);	//·µ»ØÒ»¸öÎ»ÖÃÖ¸Õë
+//	char* da = my_strchr(ar, ch);	//è¿”å›ä¸€ä¸ªä½ç½®æŒ‡é’ˆ
 //	printf("%p %c", da, *da);
 //
 //	return 0;
@@ -272,7 +272,7 @@
 //}
 
 
-////6.is_withinº¯Êı£¬²âÊÔÒ»¸ö×Ö·ûÊÇ·ñÔÚ×Ö·û´®ÖĞ
+////6.is_withinå‡½æ•°ï¼Œæµ‹è¯•ä¸€ä¸ªå­—ç¬¦æ˜¯å¦åœ¨å­—ç¬¦ä¸²ä¸­
 //#include <stdio.h>
 //#include <string.h>
 //#define SIZE 100
@@ -282,11 +282,11 @@
 //int main(void) {
 //	char ar[SIZE];
 //	char ch;
-//	printf("ÊäÈë×Ö·û´®¼°´ı²éÕÒ×Ö·û:");
+//	printf("è¾“å…¥å­—ç¬¦ä¸²åŠå¾…æŸ¥æ‰¾å­—ç¬¦:");
 //	while (scanf("%s %c", &ar, &ch)!=EOF) {
 //		int result = is_within(ch, ar);
 //		printf("%d\n", result);
-//		printf("ÊäÈë×Ö·û´®¼°´ı²éÕÒ×Ö·û:");
+//		printf("è¾“å…¥å­—ç¬¦ä¸²åŠå¾…æŸ¥æ‰¾å­—ç¬¦:");
 //	}
 //	return 0;
 //}
@@ -300,7 +300,7 @@
 //	return FLASE;
 //}
 
-//7.ÖØĞ´my_strncmpyº¯Êı
+//7.é‡å†™my_strncmpyå‡½æ•°
 //#include <stdio.h>
 //#include <string.h>
 //#define SIZE 100
@@ -309,7 +309,7 @@
 //	char dest[SIZE];
 //	char str[SIZE];
 //	int n;
-//	printf("ÊäÈë´ı¿½±´µÄ×Ö·û´®¼°³¤¶È:");
+//	printf("è¾“å…¥å¾…æ‹·è´çš„å­—ç¬¦ä¸²åŠé•¿åº¦:");
 //	scanf("%s %d", &str, &n);
 //	char* result = my_strncpy(dest, str, n);
 //	printf("%s\n", result);
@@ -321,13 +321,13 @@
 //	int count = 0;
 //
 //	while (*src != '\0' && count<n ) {
-//		//³¤¶È´óÓÚnÊ±£¬Ö»¸´ÖÆÔªËØ
+//		//é•¿åº¦å¤§äºnæ—¶ï¼Œåªå¤åˆ¶å…ƒç´ 
 //		*(dest + count) = *(src + count);
 //		count++;
 //	}
 //	//*dest = '\0';
 //	if (count < n) {
-//		//³¤¶ÈĞ¡ÓÚn£¬ĞèÒªÌí¼Ó¿Õ×Ö·û
+//		//é•¿åº¦å°äºnï¼Œéœ€è¦æ·»åŠ ç©ºå­—ç¬¦
 //		while (count < n) {
 //			*(dest + count) = '\0';
 //			count++;
@@ -337,18 +337,18 @@
 //}
 
 
-//nµÄ½×³Ë
+//nçš„é˜¶ä¹˜
 //#include <stdio.h>
 //long jiecheng(long);
 //int main(void) {
 //	long n;
-//	printf("ÇëÊäÈënµÄÖµ£¬¼ÆËã½×³Ë:");
+//	printf("è¯·è¾“å…¥nçš„å€¼ï¼Œè®¡ç®—é˜¶ä¹˜:");
 //	while (scanf("%ld", &n) == 1) {
 //		if (!jiecheng(n))
-//			printf("¸ºÊıÃ»ÓĞ½×³Ë!\n");
+//			printf("è´Ÿæ•°æ²¡æœ‰é˜¶ä¹˜!\n");
 //		else
 //			printf("!%ld = %ld\n", n, jiecheng(n));
-//		printf("ÇëÊäÈënµÄÖµ,¼ÆËã½×³Ë(ÊäÈëqÍË³ö):");
+//		printf("è¯·è¾“å…¥nçš„å€¼,è®¡ç®—é˜¶ä¹˜(è¾“å…¥qé€€å‡º):");
 //	}
 //
 //	return 0;
@@ -372,16 +372,16 @@
 //int main(void) {
 //	char ch[SIZE];
 //	char ar[SIZE];
-//	printf("ÇëÊäÈëÔ­×Ö·û´®ºÍ´ı²éÕÒµÄ×Ó×Ö·û´®:");
+//	printf("è¯·è¾“å…¥åŸå­—ç¬¦ä¸²å’Œå¾…æŸ¥æ‰¾çš„å­å­—ç¬¦ä¸²:");
 //	while (scanf("%s %s", &ch, &ar) != EOF) {
 //		char* result = string_in(ch, ar);
 //		printf("%p %c\n", result, *result);
-//		printf("ÇëÊäÈëÔ­×Ö·û´®ºÍ´ı²éÕÒµÄ×Ó×Ö·û´®:");
+//		printf("è¯·è¾“å…¥åŸå­—ç¬¦ä¸²å’Œå¾…æŸ¥æ‰¾çš„å­å­—ç¬¦ä¸²:");
 //	}
 //	return 0;
 //}
 //char* string_in(char* num,char* ch){
-//	//ÔÚÔ´×Ö·û´®Àï²éÕÒ×Ó×Ö·û´®ÔªËØÊ×´Î³öÏÖµÄÎ»ÖÃ
+//	//åœ¨æºå­—ç¬¦ä¸²é‡ŒæŸ¥æ‰¾å­å­—ç¬¦ä¸²å…ƒç´ é¦–æ¬¡å‡ºç°çš„ä½ç½®
 //	char* look = ch;
 //	while (*num != '\0' && *ch != '\0') {
 //		for (; *num != '\0'; num++) {
@@ -391,11 +391,11 @@
 //			}
 //		}
 //	}
-//	return NULL;	//Ã»ÓĞÕÒµ½
+//	return NULL;	//æ²¡æœ‰æ‰¾åˆ°
 //}
 
 
-//ÄæĞò×Ö·û´®
+//é€†åºå­—ç¬¦ä¸²
 //#include <stdio.h>
 //#include <string.h>
 //#define SIZE 100
@@ -403,17 +403,17 @@
 //int main(void) {
 //	char ch[SIZE];
 //	int n;
-//	printf("ÇëÊäÈëÄæĞò×Ö·û´®:");
+//	printf("è¯·è¾“å…¥é€†åºå­—ç¬¦ä¸²:");
 //	while (scanf("%s %d", &ch,&n) != EOF) {
 //		string_in(ch,n);
 //		printf("%s\n",ch);
-//		printf("ÇëÊäÈëÔ­×Ö·û´®ºÍ´ı²éÕÒµÄ×Ó×Ö·û´®:");
+//		printf("è¯·è¾“å…¥åŸå­—ç¬¦ä¸²å’Œå¾…æŸ¥æ‰¾çš„å­å­—ç¬¦ä¸²:");
 //	}
 //	return 0;
 //}
 //void string_in(char* num,int n) {
-//	//×Ö·û´®ÄæĞòÊä³ö
-//	//Í¨¹ıÖ¸ÕëÅÅĞò
+//	//å­—ç¬¦ä¸²é€†åºè¾“å‡º
+//	//é€šè¿‡æŒ‡é’ˆæ’åº
 //	/*char* next = num;
 //	for (; *next != '\0'; next++)
 //		;
@@ -426,9 +426,9 @@
 //		num++;
 //		next--;
 //	}*/
-//	//Í¨¹ıÏÂ±êÅÅĞò
+//	//é€šè¿‡ä¸‹æ ‡æ’åº
 //	int len = strlen(num);
-//	char ch[len];	//ĞèÒª±ä³¤Êı×éÊµÏÖ
+//	char ch[len];	//éœ€è¦å˜é•¿æ•°ç»„å®ç°
 //	char* next = ch;
 //	for (int index=0; index < len; len++) {
 //		next[index] = num[len - index - 1];
@@ -440,7 +440,7 @@
 
 
 
-//É¾³ı×Ö·û´®ÖĞµÄ¿Õ¸ñ
+//åˆ é™¤å­—ç¬¦ä¸²ä¸­çš„ç©ºæ ¼
 #include <stdio.h>
 #include <string.h>
 #define SIZE 100
@@ -454,8 +454,8 @@ int main(void) {
 	return 0;
 }
 char* del_space(char* ch) {
-	//1.Ê¹ÓÃÁÙÊ±×Ö·û´®±£´æÉ¾³ıºóµÄ×Ö·û´®,É¾³ıÍê³ÉºóÔÚ¸´ÖÆ¸øÔ­×Ö·û´®
-	//2.Ê¹ÓÃÖ¸ÕëµÄÏÂ±êÒÆ¶¯µÄ·½Ê½£¬ÅĞ¶ÏºÍÉ¾³ı¿Õ¸ñ
+	//1.ä½¿ç”¨ä¸´æ—¶å­—ç¬¦ä¸²ä¿å­˜åˆ é™¤åçš„å­—ç¬¦ä¸²,åˆ é™¤å®Œæˆååœ¨å¤åˆ¶ç»™åŸå­—ç¬¦ä¸²
+	//2.ä½¿ç”¨æŒ‡é’ˆçš„ä¸‹æ ‡ç§»åŠ¨çš„æ–¹å¼ï¼Œåˆ¤æ–­å’Œåˆ é™¤ç©ºæ ¼
 	char* cg = ch;
 	int count = 0;
 	while (*ch != '\0') {
