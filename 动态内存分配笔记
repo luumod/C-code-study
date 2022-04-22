@@ -150,3 +150,66 @@
 //}
 
 
+/*
+***************************************************几个经典的笔试题*******************************************
+*/
+
+//非法访问
+//void GetMemory(char* p) {	
+//	p = (char*)malloc(100);		//要为str分配内存，必须传递指针的地址，要使用二级指针
+//}								//char **p   *p=malloc
+//void Test(void) {
+//	char* str = NULL;
+//	GetMemory(str);				//取地址 &str
+//	strcpy(str, "hello world");
+//	printf(str);
+//	//	最后要释放空间
+//}
+
+
+//非法访问
+//char* GetMemory(void) {
+//	char p[] = "hello world";	//栈区存放局部变量和函数形参的内存空间
+//	return p;					//栈区在函数执行时开始，结束时内存被释放
+//}
+//void Test(void) {
+//	char* str = NULL;
+//	str = GetMemory();			//因此无法为str分配内存，产生非法访问
+//	printf(str);
+//	//释放free
+//}
+
+
+//内存泄露
+//void GetMemory(char** p, int num) {
+//	*p = (char*)malloc(num);	//为p分配动态内存并且传给外部str
+//}
+//void Test(void) {
+//	char* str = NULL;
+//	GetMemory(&str, 100);	
+//	strcpy(str, "hello");
+//	printf(str);
+//	//		未释放内存
+//	//free(str);
+//	//str = NULL;
+//}
+//int main(void) {
+//	Test();
+//	return 0;
+//}
+
+
+//提前释放free，非法访问
+//void Test(void) {
+//	char* str = (char*)malloc(100);
+//	strcpy(str, "hello");
+//	free(str);	//提前释放，并且str不为NULL
+//	//str=NULL
+//	if (str != NULL)
+//	{
+//		strcpy(str, "world");	
+//		printf(str);
+//	}
+//	//free
+//}
+
