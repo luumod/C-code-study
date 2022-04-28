@@ -1,0 +1,40 @@
+链表的操作:
+
+
+*******************************************************************************************
+初始化并且创建一个链表:   
+void Initial(Node* p){
+  p = new Node
+  p=NULL;     //让头节点设置为空
+}
+
+链表的信息输入:
+
+  //为头节点分配空间
+	printf("输入链表节点个数:");
+	scanf("%d", &num);
+	Node* plast=NULL;
+	Node* phead=NULL;
+	Initial(phead);
+	//Initial(phead);	//节点初始化
+	for (int i = 0; i < num; i++) {
+		//为新节点创建空间
+		Node* current = (Node*)malloc(sizeof(Node));
+		if (current == NULL) {
+			printf("%s\n", strerror(errno));
+			exit(EXIT_FAILURE);
+		}
+		if (phead == NULL)
+			phead = current;
+		else
+			plast->next = current;
+		current->next = NULL;	//设置下一个为空
+		scanf("%d", &current->value);	//在当前位置输入信息
+		plast = current;
+	}
+  
+解析： 创建一个头节点后，先将其初始化为0，在逐步创建新的节点，第一次创建一个节点时，让头节点连接此节点: phead=current，并且创建一个新的
+节点指针让他 plast=current，以便之后的继续连接
+ 当之后创建新节点时，让其前面的节点连接此节点: plast->next=current ,就这样一个节点链接连接另一个节点，形成一个链表，
+ 链表由头节点 phead指向。
+ 当之后要进行一些函数操作时，只需要头节点的名字传入函数形参即可.
