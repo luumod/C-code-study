@@ -150,6 +150,41 @@ void listDelete(Node* head, int pos) {
 }
 
 
+链表的逆置 :   
+利用头插法，
+
+void reverse(Node* head) {
+	Node* cur, * pnext;
+	cur = head->next;
+	pnext = cur;
+	head->next = NULL;
+	while (cur) {
+		pnext = cur->next;
+		cur->next = head->next;
+		head->next = cur;
+		cur = pnext;
+	}
+}
+
+
+链表的排序 :
+冒泡排序
+void buttle_sqrt(Node* head) {
+	Node* cur, * pnext;
+	cur = head->next;
+	pnext = cur->next;
+
+	for (; cur != NULL; cur = cur->next) {
+		for (pnext = cur->next; pnext != NULL; pnext = pnext->next) {
+			if (cur->value > pnext->value) {
+				int temp = cur->value;
+				cur->value = pnext->value;
+				pnext->value = temp;
+			}
+		}
+	}
+}
+
 
 查找某个节点，计算链表的长度，判断是否为空，都比较简单
 
