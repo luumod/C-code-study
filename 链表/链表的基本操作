@@ -1,0 +1,157 @@
+创建一个链表 
+
+链表分为有头节点和无头结点  有头节点方便链表的操作
+
+typedef struct node {
+	int value;
+	struct node* next;
+}Node;
+定义一个抽象数据类型
+
+***********************************************************
+1.创建一个链表并且初始化  
+首先创建头节点 :
+Node* InitList() {
+	//初始化单链表
+	Node* head;
+	head = (Node*)malloc(sizeof(Node));
+	head->value = 0;
+	head->next = NULL;
+	return head;  //把这块空间传递给主函数，此时创建的节点是头节点
+}
+由于此函数无参数值并且，即在函数栈里创建，被调函数在栈中开辟了一块空间作为该实参值的副本。
+简单来说 : 在函数体内创建一块空间，如果不用return返回的话，在结束函数后这块空间便被释放，因此无法传递到主函数
+main :  Node* plist=InitList();
+
+2.利用头插法或者尾插法初始化输入节点
+
+头插法:  把每一个节点放在前面 
+关键操作 : 
+s->next=head->next;
+head->next=s;
+
+void createListH(Node* head) {
+	//头插法创建单链表
+	Node* s;
+	for (int i = 1; i <= SIZE; i++) {
+		s = (Node*)malloc(sizeof(Node));	//为单个节点分配空间
+		//为节点赋值	
+		s->value = i;
+		//把节点插入
+		s->next = head->next;	//s->next=NULL
+		head->next = s;		//head->next=s 连接首元节点
+	}
+}
+
+尾插法 : 把新节点放在最后位置 : 需要用到尾指针，跟随最后一个节点移动
+q=p
+s->value=a;
+s->next=NULL;
+q->next=s;
+
+Node* createListR(Node* head) {
+	//尾插法创建单链表
+	Node* s, * p;	                      //一个尾指针p指向末尾
+	p = head;	                          //p一开始在头节点
+	for (int i = 0; i < SIZE; i++) {
+		Node* s = (Node*)malloc(sizeof(Node));
+		s->value = i;
+		s->next = NULL;
+		p->next = s;
+		p = s;	                          //尾指针移动到最后一个节点
+	}
+	return head;
+}
+
+
+3.链表节点的释放或者删除 :
+
+节点释放，即 头节点=NULL
+p=head->next;  q
+q=p->next; 
+free(p);
+p=q;
+
+void shifang(Node* head) {
+	//释放单链表，头节点为空
+	Node* p = head->next;
+	Node* q;
+	while (p) {
+		q = p->next;
+		free(p);
+		p = q;
+	}
+	head->next = NULL;
+}
+
+删除 : 删除所有节点
+p=head;
+head=head->next;
+free(p);
+
+void shanchu(Node* head){
+  //删除单链表
+  Node* p;
+  while (p){
+    p=head;
+    head=head->next;
+    free(p);
+  }
+}
+
+
+4.节点元素的简单操作 :
+
+在某一位置插入新的节点
+s->next = p->next
+p->next = s;          //类似于头插
+
+先要寻找这个位置
+Node* insert(Node* head, int pos, int val) {
+	//特定位置处插入一个新的节点
+	Node* p = head->next;
+	int j = 0;
+	while (p && j < pos - 1) {
+		p = p->next;
+		j++;
+	}
+	//到达指定位置后，插入元素
+	Node* s = (Node*)malloc(sizeof(Node));
+	s->value = val;
+	s->next = p->next;		//新节点连接下一个节点
+	p->next = s;			//前驱连接新节点
+
+	return head;
+}
+
+
+
+删除某一个节点
+q=p->next
+p->next=q->next //跳过并释放
+free(q);
+
+void listDelete(Node* head, int pos) {
+	//删除某个节点
+	int j = 0;
+	Node* p = head;
+	Node* q;
+	while (p && j < pos) {
+		p = p->next;
+		j++;
+	}
+	if (p == NULL || j != pos)
+		printf("没有找到此位置\n");
+	//到达待删除的前一个节点
+	q = p->next;
+	p->next = q->next;	//略过节点
+	free(q);
+	//q->next = NULL;
+}
+
+
+
+查找某个节点，计算链表的长度，判断是否为空，都比较简单
+
+
+
