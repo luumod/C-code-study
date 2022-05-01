@@ -1,0 +1,43 @@
+
+//转移表可用于替代某些switch语句
+
+/用转移表来统计一篇文章的各种字符的数量
+static int(*func[])() = {
+	islower,
+	isupper,
+	isdigit,
+	isspace
+};
+
+#define SIZE (sizeof(func)/sizeof(func[0]))
+#define ROW 3
+#define COL 80
+char* type[] = {
+	"lower",
+	"upper",
+	"digit",
+	"space"
+};
+int main(void) {
+	int count[SIZE] = { 0 };
+	char ch[ROW][COL];
+	int count_other = 0;
+
+	puts("请输入 %d*%d 的文章:");
+	for (int i = 0; i < ROW; i++) {
+		fgets(ch[i], COL, stdin);
+		for (int j = 0; j < strlen(ch[i]); j++) {
+			for (int a = 0; a < SIZE; a++) {
+				if (func[a](ch[i][j]))
+					count[a] += 1;
+			}
+		if (!isalnum(ch[i][j]) && !isspace(ch[i][j]))
+			count_other+=1;
+		}
+	}
+	for (int i = 0; i < SIZE; i++) {
+		printf("%s : %d\n", type[i], count[i]);
+	}
+	printf("other : %d\n", count_other);
+	return 0;
+}
