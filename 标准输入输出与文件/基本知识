@@ -1,0 +1,49 @@
+错误报告:  perror   errno   exit
+
+流 : 文本流和二进制流
+
+流 I/O：
+家族名         目的          可用于所有的流       只适用于stdin和stdout的流
+getchar      字符输入         fgetc getc            getchar
+putchar      字符输出         fputc  putc            putchar
+gets         文本行输入        fgets                 gets
+puts         文本行输出        fputs                 puts
+scanf        格式化输入        fscanf                scanf
+printf       格式化输出        fprintf               printf
+
+打开流:  fopen  文件名与读取模式 r  w   a  a+
+文件定位函数:  fseek  fsetpos   rewind
+刷新缓冲区 :  fflush
+
+要检查fopen的返回值是否为NULL 
+打开重启一个特定的文件流:  FILE *freopen( const char *path, const char *mode, FILE *stream );
+最后一个参数可以是带打开的流，也可以是fopen返回的流，也可以是标准输入输出错误
+
+关闭流 : fclose 文件名  成功返回非零，失败返回零
+
+！！！！！！！！！！！！！！！！要进行错误检查！！！！！！！！！！！！！！！！！！！！！！！！
+
+
+字符I/O 函数
+fgetc   getc   getchar  需要操作的流作为函数参数传递给fgetc getc 
+getchar始终从标准输入传入
+返回值为int  允许函数报告文件的末尾EOF 
+
+打印字符:
+fputc   putc    putchar  第一个字符是待打印的字符，第二个字符是流
+
+撤销字符 I/O
+ungetc  wint_t ungetwc( wint_t c, FILE *stream );
+把一个先前读入的字符返回到流中，在以后被重新读入
+
+行I/O 未格式化和格式化
+用与操作字符串
+未格式化的行I/O : 简单读取或者写入字符串
+格式化的行I/O : 执行数字和其他变量再内部和外部表示形式之间的转换
+fgets   gets  fputs  puts 操作字符串
+
+char *fgets( char *string, int n, FILE *stream );   从文件流读取字符到字符串string中， 读取到换行符(存储在缓冲区)或者满了就停止
+int fputs( const char *string, FILE *stream );      写入字符到文件中，没有缓冲区长度限制，遇到换行符会一直读取
+fgets每次只能读取一整行  fputs能一次写入多行
+
+
