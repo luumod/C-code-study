@@ -36,8 +36,9 @@ fputc   putc    putchar  第一个字符是待打印的字符，第二个字符�
 ungetc  wint_t ungetwc( wint_t c, FILE *stream );
 把一个先前读入的字符返回到流中，在以后被重新读入
 
+
+
 行I/O 未格式化和格式化
-用与操作字符串
 未格式化的行I/O : 简单读取或者写入字符串
 格式化的行I/O : 执行数字和其他变量再内部和外部表示形式之间的转换
 
@@ -47,6 +48,7 @@ char *fgets( char *string, int n, FILE *stream );   从文件流读取字符到�
 int fputs( const char *string, FILE *stream );      写入字符到文件中，没有缓冲区长度限制，遇到换行符会一直读取
 fgets每次只能读取一整行  fputs能一次写入多行
 
+
 格式化的行I/O
 fscanf  int fscanf( FILE *stream, const char *format [, argument ]... );    输入源是文件流
 scanf   int scanf( const char *format [,argument]... );                     输入源是标准输入
@@ -54,14 +56,49 @@ sscanf  int sscanf( const char *buffer, const char *format [, argument ] ... ); 
 都是从输入源读取字符，并根据format 的格式代码进行转换
 格式代码  : (h  l  L) d i n      o u x       e f g
 在转换 long  longlong short 时应使用限定符
-
 使用scanf输入时应注意字符宽度， %4d 只能读取4个宽度范围内的数字
-
 scanf输入格式码 C和指针 P310
+
 
 printf家族:创建格式化输出
 fprintf       int fprintf( FILE *stream, const char *format [, argument ]...);  可以指定输出到任何流
 printf        int printf( const char *format [, argument]... );                 输出结果到标准输出
 sprintf       int sprintf( char *buffer, const char *format [, argument] ... ); 存储到buffer缓冲区，而不是输出到流中
-
 printf输出格式码和格式标志  C和指针 P313
+
+
+二进制I/O : 用于读写文件
+fread         size_t fread( void *buffer, size_t size, size_t count, FILE *stream );  从stream流读取数据到buffer
+fwrite        size_t fwrite( const void *buffer, size_t size, size_t count, FILE *stream ); 把buffer数据写入文件stream
+他们所转存的数据都是二进制数据   如: 4023817 从fread读出再fwrite写入后得到的是二进制数据 0x003d6609
+
+
+刷新和定位函数
+fflush  :     int fflush( FILE *stream );   信息实时打印
+ftell   :     long ftell( FILE *stream );   返回下一次读取或者写入的位置距离文件开头的偏移量，二进制数据，返回字节数
+fseek   :     int fseek( FILE *stream, long offset, int origin );   文件定位 ftell函数的返回值可以当作该函数第二个参数
+表示从什么位置开始，第offset个字节。SEEK_SET起始位置   SEEK_CUR当前位置  SEEK_END尾部
+rewind fgetpos 存储文件位置 fsetpos   文件位置定位  相当于ftell和fseek
+
+
+改变缓冲方式
+对缓冲方式进行修改，只有当指定的流被打开但还没有在他上面进行操作时，在能调用这两个函数
+BUFSIZ  系统指定最大读取缓冲区长度
+setbuf    void setbuf( FILE *stream, char *buffer );
+setvbuf   int setvbuf( FILE *stream, char *buffer, int mode, size_t size );
+
+
+流错误函数
+feof      判断文件的位置是否位于末尾，如果是，返回真
+ferror    报告错误，出现错误返回真
+clearerr  重置指定流的错误标志
+
+
+创建临时文件，用于保存临时数据，程序结束时，文件销毁
+tmpile     返回值是一个文件流， wb+模式    可用于二进制和文本
+tmpnam      给临时文件取名
+remove      删除一个指定文件
+rename      文件重命名
+
+*****************************************************************************************************
+总结 ：所有的I/O操作都是在文件中移进或者移出字节的过程
