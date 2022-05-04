@@ -40,10 +40,28 @@ ungetc  wint_t ungetwc( wint_t c, FILE *stream );
 用与操作字符串
 未格式化的行I/O : 简单读取或者写入字符串
 格式化的行I/O : 执行数字和其他变量再内部和外部表示形式之间的转换
-fgets   gets  fputs  puts 操作字符串
 
+未格式化的行I/O
+fgets   gets  fputs  puts 操作字符串
 char *fgets( char *string, int n, FILE *stream );   从文件流读取字符到字符串string中， 读取到换行符(存储在缓冲区)或者满了就停止
 int fputs( const char *string, FILE *stream );      写入字符到文件中，没有缓冲区长度限制，遇到换行符会一直读取
 fgets每次只能读取一整行  fputs能一次写入多行
 
+格式化的行I/O
+fscanf  int fscanf( FILE *stream, const char *format [, argument ]... );    输入源是文件流
+scanf   int scanf( const char *format [,argument]... );                     输入源是标准输入
+sscanf  int sscanf( const char *buffer, const char *format [, argument ] ... ); 输入源是所给的第一个参数
+都是从输入源读取字符，并根据format 的格式代码进行转换
+格式代码  : (h  l  L) d i n      o u x       e f g
+在转换 long  longlong short 时应使用限定符
 
+使用scanf输入时应注意字符宽度， %4d 只能读取4个宽度范围内的数字
+
+scanf输入格式码 C和指针 P310
+
+printf家族:创建格式化输出
+fprintf       int fprintf( FILE *stream, const char *format [, argument ]...);  可以指定输出到任何流
+printf        int printf( const char *format [, argument]... );                 输出结果到标准输出
+sprintf       int sprintf( char *buffer, const char *format [, argument] ... ); 存储到buffer缓冲区，而不是输出到流中
+
+printf输出格式码和格式标志  C和指针 P313
