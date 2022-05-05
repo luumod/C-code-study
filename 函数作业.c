@@ -517,50 +517,207 @@
 
 
 //给出年月日，计算天数
-int days1(int n) {
-	int num;
-	switch (n) {
-	case 1:num = 31; break;
-	case 2:num = 29; break;
-	case 3:num = 31; break;
-	case 4:num = 30; break;
-	case 5:num = 31; break;
-	case 6:num = 30; break;
-	case 7:num = 31; break;
-	case 8:num = 31; break;
-	case 9:num = 30; break;
-	case 10:num = 31; break;
-	case 11:num = 30; break;
-	case 12:num = 31; break;
-	default:break;
+//int days1(int n) {
+//	int num;
+//	switch (n) {
+//	case 1:num = 31; break;
+//	case 2:num = 29; break;
+//	case 3:num = 31; break;
+//	case 4:num = 30; break;
+//	case 5:num = 31; break;
+//	case 6:num = 30; break;
+//	case 7:num = 31; break;
+//	case 8:num = 31; break;
+//	case 9:num = 30; break;
+//	case 10:num = 31; break;
+//	case 11:num = 30; break;
+//	case 12:num = 31; break;
+//	default:break;
+//	}
+//	return num;
+//}
+//void days(int a, int b, int c) {
+//	int sum = 0, num = 0, m;
+//	if ((a % 4 == 0 && a % 100 != 0) || a % 400 == 0) {
+//		//闰年 2 29
+//		for (int i = 1; i < b; i++) {
+//			m = days1(i);
+//			sum += m;
+//		}
+//	}
+//	else {
+//		//平年 2 28
+//		for (int i = 1; i < b; i++) {
+//			m = days1(i);
+//			sum += m;
+//		}
+//		sum -= 1;
+//	}
+//	sum += c;
+//	printf("总天数:%d\n", sum);
+//}
+//int main(void) {
+//	int n, j, k;
+//	printf("请输入年月日:");
+//	scanf("%d %d %d", &n, &j, &k);
+//	days(n, j, k);
+//
+//	return 0;
+//}
+
+
+
+//职工信息
+//#define SIZE 5
+//#define NAME_SIZE 20
+//typedef struct {
+//	char name[NAME_SIZE];
+//	long number;
+//}PEOPLE;
+//int comp(PEOPLE a, PEOPLE b) {
+//	return a.number - b.number;
+//}
+//void sqrt_peo(PEOPLE* p) {
+//	//号码排序
+//	printf("按照职工号从小到大排序:\n");
+//	int num[SIZE];
+//	for (int i = 0; i < SIZE; i++)
+//		num[i] = p[i].number;
+//	for (int i = 1; i < SIZE; i++) {
+//		long temp = num[i];
+//		int j = i - 1;
+//		while (j >= 0 && num[j] > temp) {
+//			num[j + 1] = num[j];
+//			j--;
+//		}
+//		num[j + 1] = temp;
+//	}
+//	//号码排序完成
+//	for (int i = 0; i < SIZE; i++) {
+//		for (int j = 0; j < SIZE; j++) {
+//			if (num[i] == p[j].number) {
+//				printf("%s : %d\n", p[j].name, p[j].number);
+//			}
+//		}
+//	}
+//	printf("排序完成\n");
+//}
+//void look(long name,PEOPLE* p) {
+//	//已经从小到大排序了
+//	int left = 0, right = SIZE - 1;
+//	int middle;
+//	while (left <= right) {
+//		middle = left + (right - left) / 2;
+//		if (name==p[middle].number)
+//			break;
+//		else if (name > p[middle].number) {
+//			left = middle + 1;
+//		}
+//		else {
+//			right = middle;
+//		}
+//	}
+//	if (left <= right) {
+//		printf("查找成功: %s : %d\n", p[middle].name, p[middle].number);
+//	}
+//	else
+//		printf("没有找到该员工\n");
+//}
+//void Initial(PEOPLE* p) {
+//	//输入员工信息
+//	for (int i = 0; i < SIZE; i++) {
+//		printf("请输入第%d个员工的信息:\n姓名:", i + 1);
+//		scanf("%s", p[i].name);
+//		printf("员工号:");
+//		scanf("%ld", &p[i].number);
+//	}
+//	puts("输入完成!\n");
+//}
+//void show(PEOPLE* p) {
+//	for (int i = 0; i < SIZE; i++) {
+//		printf("第%d个员工的信息:\n姓名:%s\n", i + 1,p[i].name);
+//		printf("员工号:%ld\n", p[i].number);
+//	}
+//}
+//int main(void) {
+//	PEOPLE peo[SIZE];
+//	long num = 0;
+//	Initial(peo);	//输入信息
+//	//sqrt_peo(peo);	//排序职工号
+//	qsort(peo, SIZE, sizeof(peo[0]), comp);	//可以把修改传回主调函数
+//	show(peo);		//显示初始信息
+//	printf("你要查找谁，请输入职工号码: ");
+//	while (1) {
+//		scanf("%ld", &num);
+//		getchar();
+//		look(num, peo);
+//	}
+//	return 0;	
+//}
+
+
+#define SIZE 5
+#define NAME 20
+typedef struct node{
+	char name[NAME];
+	long number;
+	struct node* next;
+}Node;
+Node* Initial() {
+	//初始化
+	Node* head = (Node*)malloc(sizeof(Node));
+	Node* r = head;
+	head->next = NULL;
+	//尾插法
+	for (int i = 0; i < SIZE; i++) {
+		Node* s = (Node*)malloc(sizeof(Node));
+		printf("请输入第%d个员工姓名:\n", i + 1);
+		scanf("%s", s->name);
+		printf("请输入工号:\n");
+		scanf("%ld", &s->number);
+		r->next = s;
+		s->next = NULL;
+		r = s;
 	}
-	return num;
+	return head;
 }
-void days(int a, int b, int c) {
-	int sum = 0, num = 0, m;
-	if ((a % 4 == 0 && a % 100 != 0) || a % 400 == 0) {
-		//闰年 2 29
-		for (int i = 1; i < b; i++) {
-			m = days1(i);
-			sum += m;
+Node* bubblesort(Node* head)
+{
+	Node* p = NULL, * q = NULL;
+	p = head->next;
+	q = p->next;
+	Node* temp = head;	//存储临时信息
+	for (; p != NULL; p = p->next) {
+		for (q = p->next; q != NULL; q = q->next) {
+			if (p->number > q->number) {
+				//原内容移走
+				strcpy(temp->name, p->name);
+				temp->number = p->number;
+				//内容更新
+				strcpy(p->name, q->name);
+				p->number = q->number;
+				//转移
+				strcpy(q->name, temp->name);
+				q->number = temp->number;
+			}
 		}
 	}
-	else {
-		//平年 2 28
-		for (int i = 1; i < b; i++) {
-			m = days1(i);
-			sum += m;
-		}
-		sum -= 1;
+	return temp;
+}
+
+void look(Node* p) {
+
+}
+void show(Node* head) {
+	Node* p = head->next;
+	while (p) {
+		printf("%s : %d\n", p->name,p->number);
+		p = p->next;
 	}
-	sum += c;
-	printf("总天数:%d\n", sum);
 }
 int main(void) {
-	int n, j, k;
-	printf("请输入年月日:");
-	scanf("%d %d %d", &n, &j, &k);
-	days(n, j, k);
-
+	Node* p = Initial();
+	p=bubblesort(p);
+	show(p);
 	return 0;
 }
