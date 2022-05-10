@@ -1,0 +1,31 @@
+
+基本操作: 
+
+initgraph 创建窗口
+setbkcolor 设置窗口颜色
+cleardevice 刷新屏幕
+
+setfillcolor 为下一个图形的填充颜色
+setlinecolor 有边框的线的颜色
+setlinestyle 线的类型 波浪线...
+
+图形绘制:
+circle fillcircle  solidcircle 
+rectangle fillrectangle solidrectangle
+roundrect fillroundrect solidroundrect  //圆角矩形
+
+文字写入
+setbkmode 字体背景透明
+settextsytle 字体模式
+settextcolor 
+
+outtextxy
+
+
+
+
+
+
+
+
+
