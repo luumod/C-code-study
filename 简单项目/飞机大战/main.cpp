@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <easyx.h>	//°²×°£¬±ØĞëÊÇ.cppÎÄ¼ş
+#include <easyx.h>	//å®‰è£…ï¼Œå¿…é¡»æ˜¯.cppæ–‡ä»¶
 #include <mmsystem.h>
 #include <time.h>
 #pragma comment(lib,"winmm.lib")
@@ -10,7 +10,7 @@ IMAGE img_player[2];
 IMAGE img_bullet[2];
 IMAGE img_enemy[2];
 
-//¼ÆÊ±Æ÷
+//è®¡æ—¶å™¨
 bool Timer(int ms,int id) {
 	static DWORD t[10];
 	if (clock() - t[id] > ms) {
@@ -21,7 +21,7 @@ bool Timer(int ms,int id) {
 }
 void loadRes()
 {
-	// ¡°loadimage¡±: 2 ¸öÖØÔØÖĞÃ»ÓĞÒ»¸ö¿ÉÒÔ×ª»»ËùÓĞ²ÎÊıÀàĞÍ
+	// â€œloadimageâ€: 2 ä¸ªé‡è½½ä¸­æ²¡æœ‰ä¸€ä¸ªå¯ä»¥è½¬æ¢æ‰€æœ‰å‚æ•°ç±»å‹
 	loadimage(&img_bk, "./res/images/background.jpg");
 	loadimage(img_player + 0, "./res/images/planeNormal_1.jpg");
 	loadimage(img_player + 1, "./res/images/planeNormal_2.jpg");
@@ -30,16 +30,16 @@ void loadRes()
 	loadimage(img_enemy + 0, "./res/images/enemy_1.jpg");
 	loadimage(img_enemy + 1, "./res/images/enemy_2.jpg");
 }
-
-//·É»ú£º×ø±ê(x,y) ³ß´ç(w,h)
+a
+//é£æœºï¼šåæ ‡(x,y) å°ºå¯¸(w,h)
 struct plane
 {
-	int x;	//×ø±ê
+	int x;	//åæ ‡
 	int y;
-	int w;	//³ß´ç
+	int w;	//å°ºå¯¸
 	int h;
 	IMAGE* pimg;
-	bool isDie; //ÊÇ·ñËÀÍö
+	bool isDie; //æ˜¯å¦æ­»äº¡
 };
 void spr_init(plane* spr, int x, int y,IMAGE *img,bool isDie)
 {
@@ -52,15 +52,15 @@ void spr_init(plane* spr, int x, int y,IMAGE *img,bool isDie)
 }
 void spr_draw(plane* spr)
 {
-	if (spr->isDie)	//true,±íÊ¾Ä³¸ö¶«Î÷ÒÑ¾­ËÀÍö,²»ÄÜ»æÍ¼
+	if (spr->isDie)	//true,è¡¨ç¤ºæŸä¸ªä¸œè¥¿å·²ç»æ­»äº¡,ä¸èƒ½ç»˜å›¾
 		return;
-	//»æÖÆÄ³¸ö¶«Î÷
+	//ç»˜åˆ¶æŸä¸ªä¸œè¥¿
 	putimage(spr->x, spr->y, spr->pimg + 0, NOTSRCERASE);
 	putimage(spr->x, spr->y, spr->pimg + 1, SRCINVERT);
 }
 void spr_moveBy(plane* spr,int dx,int dy)
 {
-	//´¦ÀíÒÆ¶¯
+	//å¤„ç†ç§»åŠ¨
 	spr->x += dx;
 	spr->y += dy;
 }
@@ -71,7 +71,7 @@ void spr_InitPosistion(plane* spr, int x, int y)
 }
 bool spr_collision(plane* left, plane* right)
 {
-	//leftµÄ×óÉÏ½ÇÔÚrightÄÚ
+	//leftçš„å·¦ä¸Šè§’åœ¨rightå†…
 	if (left->x > right->x && left->x <right->x + right->w &&
 		left->y >right->y && left->y < right->y + right->h)
 	{
@@ -88,86 +88,86 @@ bool spr_collision(plane* left, plane* right)
 plane player;
 plane bullet[BULLET_NUM];
 plane enemy[ENEMY_NUM];
-//³õÊ¼»¯Êı¾İ
+//åˆå§‹åŒ–æ•°æ®
 void init()
 {
-	//²¥·ÅÒôÀÖ mci media control interface 
+	//æ’­æ”¾éŸ³ä¹ mci media control interface 
 	mciSendString("open ./res/sound/game_music.wav alias bgm", NULL, NULL, NULL);
 	mciSendString("play bgm", NULL, NULL, NULL);
 
-	loadRes();	//¼ÓÔØÍ¼Æ¬
+	loadRes();	//åŠ è½½å›¾ç‰‡
 	int x = (getwidth()-img_player->getwidth())/2;
 	int y = getheight() - img_player->getheight();;
 	spr_init(&player, x, y, img_player,false);
-	//³õÊ¼»¯×Óµ¯
+	//åˆå§‹åŒ–å­å¼¹
 	for (int i = 0; i < BULLET_NUM; i++)
 	{
 		spr_init(bullet + i, 0, 0, img_bullet,true);
 	}
-	//³õÊ¼»¯µĞ»ú
+	//åˆå§‹åŒ–æ•Œæœº
 	for (int i = 0; i < ENEMY_NUM; i++)
 	{
 		spr_init(enemy + i, rand() % getwidth(), rand()%100, img_enemy, false);
 	}
 }
-//»æÖÆ½çÃæ
+//ç»˜åˆ¶ç•Œé¢
 void draw()
 {
 	putimage(0, 0, &img_bk);
 	spr_draw(&player);
-	//»æÖÆ×Óµ¯
+	//ç»˜åˆ¶å­å¼¹
 	for (int i = 0; i < BULLET_NUM; i++)
 	{
 		spr_draw(bullet + i);
 	}
-	//»æÖÆµĞ»ú
+	//ç»˜åˆ¶æ•Œæœº
 	for (int i = 0; i < ENEMY_NUM; i++)
 	{
 		spr_draw(enemy + i);
 	}
 }
 
-//²úÉúÒ»¿Å×Óµ¯
+//äº§ç”Ÿä¸€é¢—å­å¼¹
 void createBullet()
 {
 	for (int i = 0; i < BULLET_NUM; i++)
 	{
-		if (bullet[i].isDie)// ³õÊ¼×´Ì¬Îªtrue  ×Óµ¯ÒÑËÀÍö  ´´½¨×Óµ¯
+		if (bullet[i].isDie)// åˆå§‹çŠ¶æ€ä¸ºtrue  å­å¼¹å·²æ­»äº¡  åˆ›å»ºå­å¼¹
 		{
-			bullet[i].isDie = false;	//×Óµ¯·¢Éä  ×´Ì¬±äÎªfalse
-			//È·¶¨×Óµ¯·¢ÉäµÄÎ»ÖÃ£¬ÔÚÎÒ·½·É»úµÄÖĞ¼ä
+			bullet[i].isDie = false;	//å­å¼¹å‘å°„  çŠ¶æ€å˜ä¸ºfalse
+			//ç¡®å®šå­å¼¹å‘å°„çš„ä½ç½®ï¼Œåœ¨æˆ‘æ–¹é£æœºçš„ä¸­é—´
 			spr_InitPosistion(bullet + i, player.x+player.w/2, player.y);
 			break;
 		}
 	}
 }
 
-//´´½¨Ò»¸öµĞ¾ü
+//åˆ›å»ºä¸€ä¸ªæ•Œå†›
 void createEnemy() {
 	for (int i = 0; i < ENEMY_NUM; i++) {
 		if (enemy[i].isDie) {
-			//Èç¹ûÎªtrueËµÃ÷µĞ¾ü ÒÑ¾­Ïú»ÙÁË  ĞèÒªÖØĞÂ´´½¨Ò»¸öµĞ»ú
+			//å¦‚æœä¸ºtrueè¯´æ˜æ•Œå†› å·²ç»é”€æ¯äº†  éœ€è¦é‡æ–°åˆ›å»ºä¸€ä¸ªæ•Œæœº
 			spr_init(enemy + i, rand() % getwidth(), rand() % 100, img_enemy,false);
 			break;
 		}
 	}
 
 }
-//×Óµ¯ÏòÉÏ²»¶ÏµØÒÆ¶¯
+//å­å¼¹å‘ä¸Šä¸æ–­åœ°ç§»åŠ¨
 void bulletMove()
 {
 	for (int i = 0; i < BULLET_NUM; i++)
 	{
-		//´¦ÀíÄ³Ò»¿Å×Óµ¯ÔõÃ´ÒÆ¶¯
+		//å¤„ç†æŸä¸€é¢—å­å¼¹æ€ä¹ˆç§»åŠ¨
 		spr_moveBy(bullet + i, 0, -1);
 		if (bullet[i].y < -bullet[i].h)
 		{
-			//³¬³ö±ß½ç
-			bullet[i].isDie = true;	//ÖØĞÂ³õÊ¼»¯Îªtrue  ÀàËÆÓÚ»ØÊÕ×Óµ¯
+			//è¶…å‡ºè¾¹ç•Œ
+			bullet[i].isDie = true;	//é‡æ–°åˆå§‹åŒ–ä¸ºtrue  ç±»ä¼¼äºå›æ”¶å­å¼¹
 		}
 	}
 }
-//µĞ»ú²»¶ÏµØÍùÏÂÒÆ¶¯
+//æ•Œæœºä¸æ–­åœ°å¾€ä¸‹ç§»åŠ¨
 void enemyMove()
 {
 	for (int i = 0; i < ENEMY_NUM; i++)
@@ -175,7 +175,7 @@ void enemyMove()
 		spr_moveBy(enemy + i, 0, 1);
 		if (enemy[i].y > getheight())
 		{
-			//³¬³ö±ß½ç£¬µĞ»úÖØĞÂ²úÉú
+			//è¶…å‡ºè¾¹ç•Œï¼Œæ•Œæœºé‡æ–°äº§ç”Ÿ
 			enemy[i].x = rand() % getwidth();
 			enemy[i].y = rand()%100;
 		}
@@ -184,7 +184,7 @@ void enemyMove()
 
 void playerMove()
 {
-	//»ñÈ¡Òì²½°´¼ü×´Ì¬
+	//è·å–å¼‚æ­¥æŒ‰é”®çŠ¶æ€
 	if (GetAsyncKeyState(VK_UP) && player.y > 0)
 	{
 		spr_moveBy(&player, 0, -1);
@@ -201,13 +201,13 @@ void playerMove()
 	{
 		spr_moveBy(&player, 1, 0);
 	}
-	//°´¿Õ¸ñ¼ü·¢Éä×Óµ¯
+	//æŒ‰ç©ºæ ¼é”®å‘å°„å­å¼¹
 	if (GetAsyncKeyState(VK_SPACE) && Timer(100,0))
 	{
 		createBullet();
 	}
 
-	//ÏûÏ¢
+	//æ¶ˆæ¯
 	/*ExMessage msg = {0};
 	while (peekmessage(&msg,EM_KEY))
 	{
@@ -221,22 +221,22 @@ void playerMove()
 	}*/
 
 }
-//Íæ¼Ò´ò·É»ú
+//ç©å®¶æ‰“é£æœº
 void palyePlane()
 {
-	//ÅĞ¶Ï×Óµ¯ÊÇ·ñÓëµĞ»ú²úÉúÁËÅö×²
+	//åˆ¤æ–­å­å¼¹æ˜¯å¦ä¸æ•Œæœºäº§ç”Ÿäº†ç¢°æ’
 	for (int i = 0; i < BULLET_NUM; i++)
 	{
-		if (bullet[i].isDie)	//Èç¹ûÎªtrue ËµÃ÷×Óµ¯ÒÑ¾­ÏûÊ§ Ìø¹ıÕâ¸ö×Óµ¯
+		if (bullet[i].isDie)	//å¦‚æœä¸ºtrue è¯´æ˜å­å¼¹å·²ç»æ¶ˆå¤± è·³è¿‡è¿™ä¸ªå­å¼¹
 			continue;
 		for (int k = 0; k < ENEMY_NUM; k++)
 		{
-			if (enemy[k].isDie)	//Èç¹ûÎªtrue ËµÃ÷µĞ¾üÒÑ¾­ËÀÍö Ìø¹ıÕâ¸öµĞ¾ü
+			if (enemy[k].isDie)	//å¦‚æœä¸ºtrue è¯´æ˜æ•Œå†›å·²ç»æ­»äº¡ è·³è¿‡è¿™ä¸ªæ•Œå†›
 				continue;
-			//ÅĞ¶ÏÅö×²
+			//åˆ¤æ–­ç¢°æ’
 			if (spr_collision(bullet + i, enemy + k))
 			{
-				bullet[i].isDie = true;		//±íÊ¾×Óµ¯ºÍµĞ»úÒÑ¾­ÏûÊ§
+				bullet[i].isDie = true;		//è¡¨ç¤ºå­å¼¹å’Œæ•Œæœºå·²ç»æ¶ˆå¤±
 				enemy[k].isDie = true;		
 				/*enemy[k].x = rand() % getwidth();
 				enemy[k].y = rand()%100;*/
@@ -247,15 +247,15 @@ void palyePlane()
 
 int main()
 {
-	initgraph(591, 700);	//´´½¨Í¼ĞÎ´°¿Ú
+	initgraph(591, 700);	//åˆ›å»ºå›¾å½¢çª—å£
 	init();
 	while (true)
 	{
-		BeginBatchDraw(); //ÉÁÆÁ£ºË«»º³å
+		BeginBatchDraw(); //é—ªå±ï¼šåŒç¼“å†²
 		draw();
 		EndBatchDraw();
 
-		//Íæ¼ÒµÄÒÆ¶¯(ÒÆ¶¯×ø±ê)
+		//ç©å®¶çš„ç§»åŠ¨(ç§»åŠ¨åæ ‡)
 		playerMove();
 		bulletMove();
 		createEnemy();
