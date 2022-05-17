@@ -1,0 +1,28 @@
+
+
+MessageBox  创建一个窗口 MB_YESNO   判断
+IDYES IDNO  可以选择是yes还是no  
+
+HWND 可以创建一个窗口句柄id  hwnd
+使用工具 spr++    可以查看某个窗口的信息  
+FindWindows 来获取窗口的信息，并赋值给hwnd
+这样便可以对hwnd的窗口进行操作  
+移动窗口 MoveWindow
+
+********GetForegroundWindow() 可以使窗口句柄得到最前面的窗口***** 比较危险
+POINT 获取光标 GetCursorpos
+RECT  获取矩形区域 GetWindowRect 
+
+
+注册表的信息
+首先获得文件的路径 GetModuleFileName 获取exe的路径
+拷贝东西到路径里 CopyFile()
+添加注册表 开机自启动  
+HkEY 注册表型的变量
+打开  RegOpenKey(填入注册表的路径)
+设置  RegSetValueEx(将你的exe文件拷贝到注册表里面)
+关闭  RegCloseKey(关闭此注册表)
+
+
+
+
