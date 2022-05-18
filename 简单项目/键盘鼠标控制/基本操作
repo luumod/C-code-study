@@ -1,0 +1,26 @@
+
+
+
+
+首先创建一个窗口句柄  
+HWND hwnd=FindWindow  来选择一个窗口
+
+键盘操作:   Keybd_event(按键,0,0,0)     按键 垃圾值  (0按下 2弹开) 垃圾值
+
+可以把键盘操作放在一个函数来封装  用Sleep来延迟30ms 方便效果
+
+鼠标操作: Mouse_event 
+
+ClipCursor(&rect);    规定鼠标移动的范围
+SetCursorpos      指定鼠标到某个位置
+SetForegroundWindow(hwnd);    把此窗口放在最前面
+
+
+
+
+
+
+
+
+
+
