@@ -1,15 +1,15 @@
 #include <stdio.h>
 #include <easyx.h>
 
-//Ê×ÏÈ¶¨ÒåÒ»ÏÂ±¬Õ¨Ìå
-IMAGE boomMaskImg[6];  //6ÕÅÕÚÕÖÍ¼
-IMAGE boomSrcImg[6];   //6ÕÅÔ­Í¼Í¼
+//é¦–å…ˆå®šä¹‰ä¸€ä¸‹çˆ†ç‚¸ä½“
+IMAGE boomMaskImg[6];  //6å¼ é®ç½©å›¾
+IMAGE boomSrcImg[6];   //6å¼ åŸå›¾å›¾
 struct Boom
 {
-	int frame;  //±¬Õ¨Ö¡Êı¿ØÖÆ
-	int x, y;   //±¬Õ¨Ìå³öÏÖµÄÎ»ÖÃ
+	int frame;  //çˆ†ç‚¸å¸§æ•°æ§åˆ¶
+	int x, y;   //çˆ†ç‚¸ä½“å‡ºç°çš„ä½ç½®
 
-}boom[5];  //¶¨Òå5¸ö ÓĞ¿ÉÄÜÍ¬Ê±»áÓĞ¶à¸ö·É»ú±¬Õ¨
+}boom[5];  //å®šä¹‰5ä¸ª æœ‰å¯èƒ½åŒæ—¶ä¼šæœ‰å¤šä¸ªé£æœºçˆ†ç‚¸
 
 
 
@@ -18,7 +18,7 @@ int main()
 	initgraph(800, 600);
 	setbkcolor(WHITE);
 	cleardevice();
-	//ÏÈ°ÑÍ¼Æ¬¼ÓÔØ½øÀ´
+	//å…ˆæŠŠå›¾ç‰‡åŠ è½½è¿›æ¥
 	char str1[50],str2[50];
 	for (int i = 0; i < 6; i++)
 	{
@@ -30,39 +30,39 @@ int main()
 
 	while (1)
 	{
-		//»æÖÆ
+		//ç»˜åˆ¶
 		BeginBatchDraw();
 		cleardevice();
-		for (int i = 0; i < 5; i++) //ÕÒµ½ÕıÔÚ±¬Õ¨µÄ
+		for (int i = 0; i < 5; i++) //æ‰¾åˆ°æ­£åœ¨çˆ†ç‚¸çš„
 		{
-			if (boom[i].frame != 0)  //Îª0 ¾ÍËµÃ÷²»ÊÇ±¬Õ¨×´Ì¬
+			if (boom[i].frame != 0)  //ä¸º0 å°±è¯´æ˜ä¸æ˜¯çˆ†ç‚¸çŠ¶æ€
 			{
-				//Ò»¹²6ÕÅÍ¼Æ¬ ´Ó´¥·¢±¬Õ¨¿ªÊ¼ 1-120Ö¡»æÖÆµÚ1ÕÅÍ¼Æ¬  121-240»æÖÆµÚ¶şÕÅ ¡£¡£¡£
+				//ä¸€å…±6å¼ å›¾ç‰‡ ä»è§¦å‘çˆ†ç‚¸å¼€å§‹ 1-120å¸§ç»˜åˆ¶ç¬¬1å¼ å›¾ç‰‡  121-240ç»˜åˆ¶ç¬¬äºŒå¼  ã€‚ã€‚ã€‚
 				putimage(boom[i].x, boom[i].y, &boomMaskImg[boom[i].frame / 80], SRCPAINT);
 				putimage(boom[i].x, boom[i].y, &boomSrcImg[boom[i].frame / 80], SRCAND);
 				
 				boom[i].frame++;
-				if (boom[i].frame >= 80*6) //µ±Ö¡Êı³¬¹ı80*6ËµÃ÷6ÕÅÍ¼Æ¬¶¼ÒÑ¾­»æÖÆ½áÊø
+				if (boom[i].frame >= 80*6) //å½“å¸§æ•°è¶…è¿‡80*6è¯´æ˜6å¼ å›¾ç‰‡éƒ½å·²ç»ç»˜åˆ¶ç»“æŸ
 				{
-					boom[i].frame = 0;  //±¬Õ¨ÌåµÈ´ıÏÂÒ»´Î±¬Õ¨
+					boom[i].frame = 0;  //çˆ†ç‚¸ä½“ç­‰å¾…ä¸‹ä¸€æ¬¡çˆ†ç‚¸
 				}
 			}
 		}
 		EndBatchDraw();
 
 
-		//´¥·¢
+		//è§¦å‘
 		ExMessage m;
 		peekmessage(&m, EM_MOUSE);
-		if (m.message == WM_LBUTTONDOWN)  //×ó¼ü´¥·¢
+		if (m.message == WM_LBUTTONDOWN)  //å·¦é”®è§¦å‘
 		{
-			for (int i = 0; i < 5; i++) //5¸öÀïÃæÕÒÒ»¸ö
+			for (int i = 0; i < 5; i++) //5ä¸ªé‡Œé¢æ‰¾ä¸€ä¸ª
 			{
-				if (boom[i].frame == 0) //»¹Ã»±¬Õ¨
+				if (boom[i].frame == 0) //è¿˜æ²¡çˆ†ç‚¸
 				{
-					boom[i].x = m.x; //±¬Õ¨µãÔÚÊó±êÎ»ÖÃ
+					boom[i].x = m.x; //çˆ†ç‚¸ç‚¹åœ¨é¼ æ ‡ä½ç½®
 					boom[i].y = m.y;
-					boom[i].frame = 1; //¿ªÊ¼±¬Õ¨
+					boom[i].frame = 1; //å¼€å§‹çˆ†ç‚¸
 					break;
 				}
 			}
@@ -70,3 +70,17 @@ int main()
 	}
 	return 0;
 }
+aaaaaaaaaaaaaaaaaaaaaa
+
+
+
+
+
+aaaaaaaaaaaaa
+aaa
+aa
+
+aa
+
+a
+a
